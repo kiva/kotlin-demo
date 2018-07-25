@@ -1,5 +1,5 @@
 # kotlin-demo
-Demo kotlin app mocking out a bad blog
+Demo kotlin graphql server mocking out a bad blog
 
 # Running locally
 
@@ -13,7 +13,7 @@ cd kotlin-demo
 ./gradlew bootRun
 ```
 
-Then in your browser visit `http://localhost:8080/`
+Then in your browser visit `http://localhost:8080/graphiql?query=%7B%0A%20%20version%0A%7D`
 
 # Building and running Docker container locally
 
@@ -25,4 +25,4 @@ docker build -t kiva-demo .
 docker run -it --rm -p 8080:8080 kiva-demo
 ```
 
-Then in your browser visit `http://localhost:8080/`
+Then in your browser visit `http://localhost:8080/graphiql?query=%7B%0A%20%20version%0A%7D`
