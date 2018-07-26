@@ -12,9 +12,18 @@ import org.junit.jupiter.api.Assertions.assertEquals
 class ArticleServiceTests(@Autowired val service: ArticleService) {
 
     @Test
-    fun `Assert getArticle(id) returns magic string`() {
-        val value = service.getArticle(1)
-        assertEquals("This is a great article.", value)
+    fun `Assert getArticle(id) returns null on nonexistent ID`() {
+        val nonExistentId = 3141592654
+        val value = service.getArticle(nonExistentId)
+        assertEquals(null, value)
     }
 
+    @Test
+    fun `Assert saveArticle() saves an article`() {
+        val title = "Snappy Title"
+        val content = "This is a great article"
+        val saved = service.saveArticle(title, content)
+        assertEquals(title, saved.title)
+        assertEquals(content, saved.content)
+    }
 }

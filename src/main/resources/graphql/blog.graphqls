@@ -1,0 +1,18 @@
+type Query {
+    # The API Version
+    version : String!
+}
+
+type Article {
+    id: ID!
+    title: String!
+    content: String!
+}
+
+extend type Query {
+    getArticleById(id: ID!) : Article
+}
+
+type Mutation {
+    saveArticle(title: String, content: String) : Article!
+}
