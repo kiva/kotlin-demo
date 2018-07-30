@@ -1,0 +1,19 @@
+version: '3'
+services:
+  web:
+    build:
+      context: .
+      args:
+        - usedb=mysql
+    ports:
+    - "8080:8080"
+    depends_on:
+    - "db"
+  db:
+    image: "sameersbn/mysql"
+    environment:
+      - DB_NAME=dbname
+      - DB_USER=dbuser
+      - DB_PASS=dbpass
+    ports:
+    - "33306:3306"
