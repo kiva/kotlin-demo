@@ -76,29 +76,4 @@ Then in your browser visit `http://localhost:8080/graphiql?query=%7B%0A%20%20ver
 
 # Using Docker Compose to Spin Up a Dev Stack Locally
 
-Dependency: You'll want to have Docker and Docker Compose installed locally. (Docker for Mac includes Docker Compose.)
-
-Note: We'll streamline and scriptify this process eventually.
-
-## Installing nuxt-sandbox
-To build and run linked service containers locally, first make sure you have the nuxt-sandbox repo installed in a sibling directory to the kotlin-demo repo:
-
-From the kotlin-demo directory,
-
-```
-cd ..
-git clone git@github.com:kiva/nuxt-sandbox.git
-```
-
-See https://github.com/kiva/nuxt-sandbox/ for further instructions on what you can do with the NUXT sandbox!
-
-## Docker Compose
-
-Assuming you have installed the nuxt-sandbox repo as a sibling directory to kotlin-demo, then, from the kotlin-demo directory:
-```
-docker-compose build
-
-docker-compose up
-```
-
-Now try visiting `http://localhost:8989/`.
+See https://github.com/kiva/kotlin-dev-env
