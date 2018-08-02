@@ -1,5 +1,9 @@
 # kotlin-demo
-Demo kotlin graphql server mocking out a bad blog
+Demo kotlin graphql server mocking out a bad blog.
+
+At some point this was based on https://spring.io/guides/tutorials/spring-boot-kotlin/ but then spun out to graphQL via https://blog.pusher.com/writing-graphql-service-using-kotlin-spring-boot/. Also it's very bad.
+
+*Note:* Under the default configuration, data will not persist between runtime sessions.
 
 # IntelliJ IDEA
 
