@@ -1,6 +1,6 @@
 version: '3'
 services:
-  web:
+  api:
     build:
       context: .
       args:
@@ -15,5 +15,15 @@ services:
       - DB_NAME=dbname
       - DB_USER=dbuser
       - DB_PASS=dbpass
+    expose:
+    - "3306"
+  ui:
+    build:
+      context: ../nuxt-sandbox/
+      dockerfile: Dev.Dockerfile
+    volumes:
+      - ../nuxt-sandbox/:/app
     ports:
-    - "33306:3306"
+    - "8989:8989"
+    depends_on:
+      - "api"

@@ -13,6 +13,41 @@ Dependency: JDK 8 (not 9 or 10). The easiest way for Mac is to download from Ora
 At the current time it appears installing openJDK 8 (the flavor our Docker containers will run) is non-trivial,
 although if you find a good path for this, let us know!
 
+## Checking JDK Versions
+
+On your Mac, you can check your installed JDKs from the command line:
+
+```
+ls /Library/Java/JavaVirtualMachines/
+> 0 drwxr-xr-x  3 root  wheel    96B Jul 30 09:50 ./
+> 0 drwxr-xr-x  4 root  wheel   128B Jan 18  2018 ../
+> 0 drwxr-xr-x  3 root  wheel    96B Jul 21 10:17 jdk10.0.2.jdk/
+> 0 drwxr-xr-x  3 root  wheel    96B Jul 17 18:43 jdk1.8.0_181.jdk/
+```
+
+From the output here, 'jdk10.0.2.jdk' means that I have a version of JDK 10 installed. On the other hand,
+'jdk1.8.0_181.jdk' means that I have a version of JDK 8 installed. You can check the default JDK in use
+via the command line:
+
+```
+/usr/libexec/java_home
+> /Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home
+```
+
+If you see something other than a version of JDK 8 here, you won't be able to run compiled Kotlin code on the JVM. Probably
+the most straightforward way of managing the JDK version is simply to remove any installed versions of JDK 9 or 10. (There is a way
+to configure the JDK version for a Kotlin app via Gradle, but we do not know of a platform-independent way
+of configuring this). To remove the version of JDK 10 in the example above, you can use the command line:
+
+```
+sudo rm -r /Library/Java/JavaVirtualMachines/jdk10.0.2.jdk/
+```
+
+We're always looking for improvements to the JDK version setup -- let us know if you have any suggestions!
+
+## Compiling, testing, and running locally
+
+
 Try this (from your Mac, in the directory you want to house the code):
 
 ```
@@ -38,3 +73,32 @@ docker run -it --rm -p 8080:8080 kiva-demo
 ```
 
 Then in your browser visit `http://localhost:8080/graphiql?query=%7B%0A%20%20version%0A%7D`
+
+# Using Docker Compose to Spin Up a Dev Stack Locally
+
+Dependency: You'll want to have Docker and Docker Compose installed locally. (Docker for Mac includes Docker Compose.)
+
+Note: We'll streamline and scriptify this process eventually.
+
+## Installing nuxt-sandbox
+To build and run linked service containers locally, first make sure you have the nuxt-sandbox repo installed in a sibling directory to the kotlin-demo repo:
+
+From the kotlin-demo directory,
+
+```
+cd ..
+git clone git@github.com:kiva/nuxt-sandbox.git
+```
+
+See https://github.com/kiva/nuxt-sandbox/ for further instructions on what you can do with the NUXT sandbox!
+
+## Docker Compose
+
+Assuming you have installed the nuxt-sandbox repo as a sibling directory to kotlin-demo, then, from the kotlin-demo directory:
+```
+docker-compose build
+
+docker-compose up
+```
+
+Now try visiting `http://localhost:8989/`.
