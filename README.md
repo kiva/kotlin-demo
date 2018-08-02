@@ -64,9 +64,19 @@ cd kotlin-demo
 
 Then in your browser visit `http://localhost:8080/graphiql?query=%7B%0A%20%20version%0A%7D`
 
-# Building and running Docker container locally
+# Install Docker on your Mac
 
-Dependency: You'll want to have Docker installed locally.
+Check if you already have Docker installed: ```docker -v```. If it's old (current is 18.*), uninstall first:
+```
+$ rm -f /usr/local/bin/docker
+$ rm -f /usr/local/bin/docker-compose
+$ rm -f /usr/local/bin/docker-machine
+```
+That will probably do it, but otherwise check out [this page](https://docs.docker.com/toolbox/toolbox_install_mac/#how-to-uninstall-toolbox).
+
+Then [install Docker](https://www.docker.com/docker-mac). Launch the Docker app, and then check the command line tool was installed: in a new terminal window, ```docker -v``` should be something like 18.*.
+
+# Building and running Docker container locally
 
 Make sure the app is not running locally as described above (or remap port bindings).
 From the root directory of the application,
