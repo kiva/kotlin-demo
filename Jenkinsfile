@@ -1,3 +1,4 @@
 node {
     sh "./gradlew test"
+
 }
