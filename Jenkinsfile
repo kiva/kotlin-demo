@@ -1,9 +1,14 @@
-node {
-    agent { dockerfile true }
+pipeline {
+    agent {
+        dockerfile true
+    }
+    environment {
+        CI = 'true'
+    }
     stages {
-        stage('Build') {
+        stage('Install') {
             steps {
-                    echo 'Building..'
+                echo 'Installing..'
             }
         }
         stage('Test') {
@@ -11,9 +16,10 @@ node {
                 echo 'Testing..'
             }
         }
-        stage('Deploy') {
+        stage('Build') {
             steps {
-                echo 'Deploying....'
+                echo 'Building..'
             }
         }
+    }
 }
