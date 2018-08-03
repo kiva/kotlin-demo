@@ -21,7 +21,7 @@ class ArticleServiceTests(@Autowired val service: ArticleService) {
     @Test
     fun `Assert saveArticle() saves an article`() {
         val title = "Snappy Title"
-        val content = "This is a great article"
+        val content = "This is a really great article"
         val saved = service.saveArticle(title, content)
         assertEquals(title, saved.title)
         assertEquals(content, saved.content)
