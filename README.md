@@ -49,6 +49,25 @@ sudo rm -r /Library/Java/JavaVirtualMachines/jdk10.0.2.jdk/
 
 We're always looking for improvements to the JDK version setup -- let us know if you have any suggestions!
 
+## Configuring JDK 8 in IntelliJ IDEA
+
+If you had a newer version of the JDK installed when you booted IntelliJ IDEA, it may have automatically set your
+default JDK to be a newer version, which may now be nonexistent after uninstallation as described above.
+
+After managing your JDK versions as described above, it's probably a good idea to check that InelliJ IDEA knows which
+JDK to use. To do so, open IntelliJ with this repository as the project folder, and navigate to
+`File > Project Structure...`.
+
+In the popup dialog, first navigate to the `Project Settings > Project` pane (typically selected by default). Here
+change the `Project SDK` to be `1.8` from the menu, and set the `Project Language Level` to be
+`8 - Lambdas, type annotations, etc` from the menu. Now navigate to the `Platform Settings > SDKs` pane. Here, you
+should see `1.8` as an item on the list. If you see `9` or `10`, your life will probably be simpler if you just
+delete them from the list by clicking the item to highlight, then clicking the `-` button at the top of the list.
+
+If you don't see `1.8` in either of the panes above, it means that you either don't have JDK 1.8 installed (see the
+previous section) or IntelliJ IDEA doesn't know you have JDK 1.8 installed (in which case, try restarting IntelliJ
+IDEA).
+
 ## Compiling, testing, and running locally
 
 
