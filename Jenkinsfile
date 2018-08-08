@@ -8,12 +8,6 @@ pipeline {
         CI = 'true'
     }
     stages {
-        stage('Build') {
-            steps {
-                echo 'Building...'
-                sh "./gradlew build"
-            }
-        }
         stage('Test') {
             steps {
                 echo 'Testing..'
