@@ -1,14 +1,17 @@
 # Dockerfile focused on development environment use case
 FROM openjdk:8-jdk-alpine
-WORKDIR /root
-# Copy gradle wrapper and configuration
-COPY build.gradle settings.gradle gradlew ./
-COPY gradle ./gradle
-# Download dependencies only, speeding up later builds
-RUN ./gradlew build --no-daemon || return 0 # -x :bootJar -x test --continue
-# Now copy the actual project source in
+
+# Prep image with gradle cache to use as mount point for host cache when container runs
+RUN mkdir /root/.gradle
+# Explicitly set home so container run of gradle uses right cache location
+ENV HOME /root
+
+# We can mount the host code repo here if we to update with every run, but the copy below makes mounting unnecessary
+# if we only want the repo state at build time.
+RUN mkdir /app
+
+WORKDIR /app
 COPY . .
-# Build it for real this time
-RUN ./gradlew build
-# Run with gradle bootRun to enable auto reload behavior
-ENTRYPOINT ["./gradlew", "bootRun"]
+
+# Running with gradle in dev environment to enable devtools features (debugging, auto reload)
+CMD ["./gradlew", "bootRun"]

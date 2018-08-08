@@ -1,6 +1,8 @@
 pipeline {
     agent {
-        dockerfile true
+        dockerfile {
+            args '-v $HOME/.gradle:/root/.gradle'
+        }
     }
     environment {
         CI = 'true'
