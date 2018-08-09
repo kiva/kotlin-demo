@@ -10,9 +10,11 @@ import org.junit.jupiter.api.Assertions.assertEquals
 
 @ExtendWith(SpringExtension::class)
 @DataJpaTest
-class RepositoriesTests(@Autowired val entityManager: TestEntityManager,
-                        @Autowired val userRepository: UserRepository,
-                        @Autowired val articleRepository: ArticleRepository) {
+class RepositoriesTests(
+    @Autowired val entityManager: TestEntityManager,
+    @Autowired val userRepository: UserRepository,
+    @Autowired val articleRepository: ArticleRepository
+) {
 
     @Test
     fun `When findById then return Article`() {
@@ -39,5 +41,4 @@ class RepositoriesTests(@Autowired val entityManager: TestEntityManager,
 
         assertEquals(user, found.get())
     }
-
 }
