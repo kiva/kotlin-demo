@@ -115,3 +115,120 @@ Then in your browser visit `http://localhost:8080/graphiql?query=%7B%0A%20%20ver
 # Using Docker Compose to Spin Up a Dev Stack Locally
 
 See https://github.com/kiva/kotlin-dev-env
+
+# Local Development Workflow
+
+## Local Development via Native JVM in IntelliJ
+
+When you initially import this repository as a project in IntelliJ, select "Enable Auto-Impport" and make sure the
+"Use Native Gradle Wrapper" is selected. If IntelliJ pops up a dialog asking you to enable
+auto-import, you can take that route.
+
+Importing the project in this way sets up a Spring Boot Run / Debug config powered by the Gradle wrapper included
+in the repository. To see your options, look for "Play" and "Debug" icons in the upper right of your window. You should
+also see a select menu with "BlogApplication" selected.
+
+### Running the Spring Boot application natively in IntelliJ with Auto-Restart
+
+Hitting the "Play" icon will run your Spring Boot application on your native JVM. To confirm it's working, test the graphql
+endpoint by visiting `http://localhost:8080/graphiql?query=%7B%0A%20%20version%0A%7D` in your browser and running the version query.
+
+
+Running the app in this way will enable auto-restart features
+by default, meaning that when you make code changes and recompile them, the application will quickly auto restart, enabling
+faster feedback. (See https://docs.spring.io/spring-boot/docs/current/reference/html/using-boot-devtools.html for more
+info.) Note that you will need to not only save the updates to your source files, but also build the project to initiate
+restart. You should see action on the Spring Boot app console when restart is triggered.
+
+Note that we can configure the auto-restart behavior to trigger on every file save, but for now this seems excessive.
+
+### Debugging the Spring Boot application natively in IntelliJ
+
+Hitting the "Debug" icon in the Run / Debug tool will start the Spring Boot application in debug mode, and attach
+IntelliJ's debugger to the app. Try starting in Debug mode, creating a breakpoint on Query.kt, and hitting the graphql
+endpoint to see it in action!
+
+## Local Development via Docker Container with IntelliJ
+
+IntelliJ's Docker plugin is limited. It enables you to manage images and containers from a tool window in IntelliJ,
+using Dockerfiles, Docker Compose configs, etc. However, the integration does not have any features specifically powering
+Spring Boot development via Docker. Due to the limitations of the plugin, we'll demonstrate command line usage of Docker below.
+
+To get started with the plugin, you can right-click the Dockerfile in the project directory listing, and select
+"Run Dockerfile." You may need to download the Docker plugin and restart IntelliJ if the plugin was not previously
+installed.
+
+### Running the Spring Boot application in Docker with Auto-Restart
+
+We recommend using the included Docker Compose file via the command line to configure and boot the application for
+development. From the root repository directory,
+
+`docker-compose up`
+
+This will boot the app in a Docker Container with auto-restart enabled, and your Mac's source code mounted as a volume
+in the container. To confirm it's working, test the graphql endpoint by visiting `http://localhost:8080/graphiql?query=%7B%0A%20%20version%0A%7D` in your browser and running the version query.
+
+As usual, the application auto-restart will not be triggered by simply saving a source file. Instead,
+we recommend you open a second terminal window on your Mac. You'll need the container's name:
+
+`docker container ls`
+
+You should see something like `kotlin-demo_app_1` (make sure to look at the container name, not the image name). This
+should match with the console output prefixes in the Docker Compose shell.
+
+With the container name in hand, open a shell into the running container:
+
+`docker exec -it kotlin-demo_app_1 sh`
+
+Now you can run any gradle task in the container, like `./gradlew build` or `./gradlew test`. Either of these tasks will
+compile any code changes, which should trigger the auto-restart behavior, which should show in the docker-compose console
+output.
+
+*Note:* A known issue with the current setup is that mounting the host's Gradle cache prevents the container from needing
+to redownload Gradle and dependencies with every run. However, Gradle spawns daemons that appear to be incompatible
+between the host and container (and possibly even incompatible between different container sessions). If we pursue this
+setup further, we can improve this situation. The best move for now is to avoid alternating Gradle runs on the host and
+the container, and just keep running Gradle exclusively in the container.
+
+### Debugging the Spring Boot application in Docker
+
+The only know current way to debug the Spring Boot application via Docker and IntelliJ is to use remote debugging. A
+current limitation of this setup is that we cannot simultaneously enable auto-restart and debugging in a Docker
+container. Instead, we need to run the container via differing methods. (If you want to brave Gradle forking and
+figuring out how to attach the IntelliJ debugger to the Gradle fork that the actual auto-restart-enabled application is
+running in, you can probably solve this. I wonder if setting the Debugger Model to listen might be a solution here?)
+
+#### Setting Up Remote Debugging Configuration in IntelliJ
+
+First, go to `Run > Edit Configurations...` Hit the `+` icon, and select `Remote`. In the dialog, name the configuration
+(e.g., "Blog Remote"), and accept the defaults (namely: Host - localhost, Port - 5005, Transport - Socket, Debugger Mode - Attach).
+
+Now, we need to run the container and override the usual entrypoint to avoid running the app with Gradle. From the root
+repository directory,
+
+`docker build -t kiva-demo .`
+
+You shouldn't need to build again unless the Dockerfile changes. Now, run the container and override the Gradle entrypoint:
+
+`docker run -it --rm -p 8080:8080 -p 5005:5005 -v "$(pwd)":/app -v $HOME/.gradle:/root/.gradle kiva-demo java -agentlib:jdwp=transport=dt_socket,address=5005,server=y,suspend=n -jar /app/build/libs/blog-0.0.1-SNAPSHOT.jar`
+
+In addition to the docker-compose setup, this command also opens up port 5005 (used by the debugger), and overrides the
+`./gradlew bootRun` entrypoint with a direct `java -jar` invocation that passes in command line args setting up the debugger.
+
+##### Aside if this command doesn't work
+
+Note that this method requires that the packaged JAR be available (i.e., Gradle build has been run at least once), and that
+it be named `blog-0.0.1-SNAPSHOT.jar`. If Gradle has been run under default configuration, this should be the case. If
+not, then we recommend first following the docker-compose instructions in the previous section to make sure the app is
+built. Then check the path to the JAR as follows
+
+`docker run -it --rm -v "$(pwd)":/app kiva-demo ls /app/build/libs`
+
+You should be able to replace the JAR filename in the command above with the result of this listing.
+
+##### Attaching IntelliJ debugger to the Docker app
+
+Once you've got the container running in debug mode as above, you can attach the IntelliJ debugger by selecting your Remote
+Run / Debug configuration you created and clicking the "Debug" icon. You should see IntelliJ report `Connected to the target VM, address: 'localhost:5005', transport: 'socket'` in the Debugger console.
+
+Now, set a breakpoint (try it on the Query.kt definition for version), and hit that graphql endpoint!
