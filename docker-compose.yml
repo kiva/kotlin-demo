@@ -8,6 +8,3 @@ services:
       - .:/app
     ports:
     - "8080:8080"
-    - "5005:5005"
-    environment:
-      - JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,address=5005,server=y,suspend=n
