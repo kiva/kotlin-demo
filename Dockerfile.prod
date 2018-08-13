@@ -1,3 +1,4 @@
+# Dockerfile focused on production use case
 # Builder stage needs JDK and gradle
 FROM openjdk:8-jdk-alpine as builder
 WORKDIR /root
