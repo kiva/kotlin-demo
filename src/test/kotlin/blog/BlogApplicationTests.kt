@@ -9,8 +9,7 @@ import org.junit.jupiter.api.Test
 @SpringBootTest
 class BlogApplicationTests() {
 
-	@Test
-	fun testContext() {
-	}
-
+    @Test
+    fun testContext() {
+    }
 }

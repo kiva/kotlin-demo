@@ -68,6 +68,11 @@ If you don't see `1.8` in either of the panes above, it means that you either do
 previous section) or IntelliJ IDEA doesn't know you have JDK 1.8 installed (in which case, try restarting IntelliJ
 IDEA).
 
+## Connecting IntelliJ to our Settings Repository
+
+In IntelliJ, go to ```File -> Settings Repository```, enter ```https://github.com/kiva/intellij-settings-repository```
+for the Upstream URL, then click ```Overwrite Local```.
+
 ## Compiling, testing, and running locally
 
 
