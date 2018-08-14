@@ -167,7 +167,7 @@ Spring Boot development via Docker. Due to the limitations of the plugin, we'll 
 
 To get started with the plugin, you can right-click the Dockerfile in the project directory listing, and select
 "Run Dockerfile." You may need to download the Docker plugin and restart IntelliJ if the plugin was not previously
-installed.
+installed (when you open the Dockerfile to edit, IntelliJ will prompt you to install the Docker plugin).
 
 ### Running the Spring Boot application in Docker with Auto-Restart
 
