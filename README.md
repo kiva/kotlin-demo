@@ -5,12 +5,6 @@ At some point this was based on https://spring.io/guides/tutorials/spring-boot-k
 
 *Note:* Under the default configuration, data will not persist between runtime sessions.
 
-# IntelliJ IDEA
-
-If you want to work on the Kotlin, IntelliJ IDEA (https://www.jetbrains.com/idea/) is highly recommended.
-There is a free community license, and we'll most likely be purchasing volume licenses
-for the ultimate edition (which has a 30 day trial).
-
 # Running locally
 
 Dependency: JDK 8 (not 9 or 10). The easiest way for Mac is to download from Oracle directly (http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html).
@@ -49,6 +43,26 @@ sudo rm -r /Library/Java/JavaVirtualMachines/jdk10.0.2.jdk/
 
 We're always looking for improvements to the JDK version setup -- let us know if you have any suggestions!
 
+## Compiling, testing, and running locally
+
+Try this (from your Mac, in the directory you want to house the code):
+
+```
+git clone git@github.com:kiva/kotlin-demo.git
+cd kotlin-demo
+
+./gradlew test
+./gradlew bootRun
+```
+
+Then in your browser visit `http://localhost:8080/graphiql?query=%7B%0A%20%20version%0A%7D`
+
+# IntelliJ IDEA
+
+If you want to work on the Kotlin, IntelliJ IDEA (https://www.jetbrains.com/idea/) is highly recommended.
+There is a free community license, and we'll most likely be purchasing volume licenses
+for the ultimate edition (which has a 30 day trial).
+
 ## Configuring JDK 8 in IntelliJ IDEA
 
 If you had a newer version of the JDK installed when you booted IntelliJ IDEA, it may have automatically set your
@@ -72,21 +86,6 @@ IDEA).
 
 In IntelliJ, go to ```File -> Settings Repository```, enter ```https://github.com/kiva/intellij-settings-repository```
 for the Upstream URL, then click ```Overwrite Local```.
-
-## Compiling, testing, and running locally
-
-
-Try this (from your Mac, in the directory you want to house the code):
-
-```
-git clone git@github.com:kiva/kotlin-demo.git
-cd kotlin-demo
-
-./gradlew test
-./gradlew bootRun
-```
-
-Then in your browser visit `http://localhost:8080/graphiql?query=%7B%0A%20%20version%0A%7D`
 
 # Install Docker on your Mac
 
