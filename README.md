@@ -165,7 +165,7 @@ IntelliJ's Docker plugin is limited. It enables you to manage images and contain
 using Dockerfiles, Docker Compose configs, etc. However, the integration does not have any features specifically powering
 Spring Boot development via Docker. Due to the limitations of the plugin, we'll demonstrate command line usage of Docker below.
 
-To get started with the plugin, you can right-click the Dockerfile in the project directory listing, and select
+First, make sure you have launched the Docker app on your Mac. To get started with the plugin, you can right-click the Dockerfile in the project directory listing, and select
 "Run Dockerfile." You may need to download the Docker plugin and restart IntelliJ if the plugin was not previously
 installed (when you open the Dockerfile to edit, IntelliJ will prompt you to install the Docker plugin).
 
