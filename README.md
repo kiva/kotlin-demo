@@ -43,6 +43,19 @@ sudo rm -r /Library/Java/JavaVirtualMachines/jdk10.0.2.jdk/
 
 We're always looking for improvements to the JDK version setup -- let us know if you have any suggestions!
 
+## Setting up git on your Mac
+
+Check your current git config on your Mac: ```git config --list```.
+If you don't have values for user.name and user.email, set them:
+```
+git config --global user.name "Mona Lisa"
+git config --global user.email "email@example.com"
+```
+
+Recommended: install
+[bash git completion](https://github.com/bobthecow/git-flow-completion/wiki/Install-Bash-git-completion#os-x--macos)
+for git auto-complete.
+
 ## Compiling, testing, and running locally
 
 Try this (from your Mac, in the directory you want to house the code):
