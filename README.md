@@ -60,8 +60,11 @@ Then in your browser visit `http://localhost:8080/graphiql?query=%7B%0A%20%20ver
 # IntelliJ IDEA
 
 If you want to work on the Kotlin, IntelliJ IDEA (https://www.jetbrains.com/idea/) is highly recommended.
-There is a free community license, and we'll most likely be purchasing volume licenses
-for the ultimate edition (which has a 30 day trial).
+Install the Ultimate edition - it has a 30 day trial and we'll have licenses soon.
+
+When you first open IntelliJ, accept the defaults and select to Open the directory where you cloned the
+kotlin-demo repo.  Select "Enable Auto-Import" and make sure the "Use default Gradle wrapper" is selected. If IntelliJ
+pops up a dialog asking you to enable auto-import, you can take that route.
 
 ## Configuring JDK 8 in IntelliJ IDEA
 
@@ -119,13 +122,9 @@ See https://github.com/kiva/kotlin-dev-env
 
 ## Local Development via Native JVM in IntelliJ
 
-When you initially import this repository as a project in IntelliJ, select "Enable Auto-Impport" and make sure the
-"Use Native Gradle Wrapper" is selected. If IntelliJ pops up a dialog asking you to enable
-auto-import, you can take that route.
-
-Importing the project in this way sets up a Spring Boot Run / Debug config powered by the Gradle wrapper included
-in the repository. To see your options, look for "Play" and "Debug" icons in the upper right of your window. You should
-also see a select menu with "BlogApplication" selected.
+Using the auto-import feature, as you did earlier, sets up a Spring Boot Run / Debug config powered by the Gradle
+wrapper included in the repository. To see your options, look for "Play" and "Debug" icons in the upper right of your
+window. You should also see a select menu with "BlogApplication" selected.
 
 ### Running the Spring Boot application natively in IntelliJ with Auto-Restart
 
