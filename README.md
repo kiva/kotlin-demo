@@ -36,6 +36,13 @@ docker-compose build
 docker-compose up
 ```
 
+Alternatively, manually build and run:
+
+```
+docker build -t kotlin-demo .
+docker run -it --rm -p 8080:8080 kotlin-demo
+```
+
 Then in your browser visit `http://localhost:8080/graphiql?query=%7B%0A%20%20version%0A%7D`
 
 # Using Docker Compose to Spin Up a Dev Stack Locally
