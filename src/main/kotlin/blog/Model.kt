@@ -11,7 +11,7 @@ import java.time.LocalDateTime
 data class Article(
     val title: String,
     val content: String,
-    @ManyToOne @JoinColumn val author: User,
+    @ManyToOne @JoinColumn val author: User? = null,
     @Id @GeneratedValue val id: Long? = null,
     val addedAt: LocalDateTime = LocalDateTime.now()
 )
