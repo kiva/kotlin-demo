@@ -3,16 +3,14 @@ package blog
 import org.springframework.stereotype.Service
 
 @Service
-class ArticleService(private val repository: ArticleRepository, private val userRepository: UserRepository) {
+class ArticleService(private val articles: ArticleRepository, private val users: UserRepository) {
 
     fun getArticle(id: Long): Article? {
-        return repository.findById(id).orElse(null)
+        return articles.findById(id).orElse(null)
     }
 
-    fun saveArticle(title: String, content: String): Article {
-        val author = User("testusername", "Firstname", "Surname")
-        userRepository.save(author)
+    fun saveArticle(title: String, content: String, author: User? = null): Article {
         val article = Article(title, content, author)
-        return repository.save(article)
+        return articles.save(article)
     }
 }
