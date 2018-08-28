@@ -13,7 +13,6 @@ import org.mockito.BDDMockito.any
 import org.mockito.BDDMockito.verify
 import org.mockito.BDDMockito.argThat
 
-
 @ExtendWith(SpringExtension::class)
 @SpringBootTest
 class ArticleServiceTests(@Autowired val service: ArticleService) {
@@ -59,7 +58,7 @@ class ArticleServiceTests(@Autowired val service: ArticleService) {
         // similar to expectations in phpunit, where we'd set up expectations for method calls before those method
         // calls were invoked, and the verification would happen implicitly during teardown
         // here we inspect method calls explicitly, so the call must have already happened
-        verify(articleRepository).save(argThat {article ->
+        verify(articleRepository).save(argThat { article ->
             (article.title == testTitle && article.content == testContent)
         })
     }
