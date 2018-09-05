@@ -17,7 +17,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building...'
-                dockerImage = docker.build("kotlin-demo")
+                def dockerImage = docker.build("kotlin-demo")
             }
         }
         stage('Publish') {
