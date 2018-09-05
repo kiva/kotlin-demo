@@ -17,14 +17,14 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building...'
-                def dockerImage = docker.build("kotlin-demo")
+                sh "docker build -t kotlin-demo ."
             }
         }
         stage('Publish') {
             steps {
                 echo 'Publishing...'
                 withDockerRegistry([ credentialsId: "ledlie-docker-hub-creds", url: "" ]) {
-                    dockerImage.push()
+                    sh "docker push kotlin-demo"
                 }
             }
         }
