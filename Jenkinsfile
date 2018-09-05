@@ -12,14 +12,14 @@ pipeline {
             }
             steps {
                 echo 'Testing...'
-                sh "./gradlew test"
+                sh "./gradlew build"
             }
         }
         stage('Build') {
             agent { label 'dockerhost' }
             steps {
                 echo 'Building...'
-                sh "docker build -t kotlin-demo ."
+                sh "docker build -t kotlin-demo -f Dockerfile.prod ."
             }
         }
         stage('Publish') {
