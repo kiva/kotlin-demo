@@ -19,7 +19,7 @@ pipeline {
             agent { label 'dockerhost' }
             steps {
                 echo 'Building...'
-                sh "docker build -t kiva/kotlin-demo -f Dockerfile.prod ."
+                sh "docker build -t kiva/kiosa-dev -f Dockerfile.prod ."
             }
         }
         stage('Publish') {
