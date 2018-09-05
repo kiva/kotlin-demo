@@ -27,7 +27,7 @@ pipeline {
             steps {
                 echo 'Publishing...'
                 withDockerRegistry([ credentialsId: "ledlie-docker-hub-creds", url: "" ]) {
-                    sh "docker push kiva/kotlin-demo:latest"
+                    sh "docker push kiva/kiosa-dev:latest"
                 }
             }
         }
