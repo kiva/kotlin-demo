@@ -19,7 +19,7 @@ pipeline {
             agent { label 'dockerhost' }
             steps {
                 echo 'Building...'
-                sh "docker build -t kotlin-demo -f Dockerfile.prod ."
+                sh "docker build -t kiva/kotlin-demo -f Dockerfile.prod ."
             }
         }
         stage('Publish') {
@@ -27,7 +27,7 @@ pipeline {
             steps {
                 echo 'Publishing...'
                 withDockerRegistry([ credentialsId: "ledlie-docker-hub-creds", url: "" ]) {
-                    sh "docker push kotlin-demo"
+                    sh "docker push kiva/kotlin-demo:latest"
                 }
             }
         }
