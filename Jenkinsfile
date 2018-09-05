@@ -16,14 +16,14 @@ pipeline {
             }
         }
         stage('Build') {
-            agent any
+            agent { label 'dockerhost' }
             steps {
                 echo 'Building...'
                 sh "docker build -t kotlin-demo ."
             }
         }
         stage('Publish') {
-            agent any
+            agent { label 'dockerhost' }
             steps {
                 echo 'Publishing...'
                 withDockerRegistry([ credentialsId: "ledlie-docker-hub-creds", url: "" ]) {
