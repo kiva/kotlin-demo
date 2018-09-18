@@ -13,7 +13,7 @@ pipeline {
                     agent { label 'dockerhost' }
                     steps {
                         echo 'Building and testing...'
-                        withDockerContainer('openjdk:8-jdk-alpine', '-v $HOME/.gradle:/root/.gradle') {
+                        withDockerContainer(image: 'openjdk:8-jdk-alpine', args: '-v $HOME/.gradle:/root/.gradle') {
                             sh "./gradlew build"
                         }
                     }
