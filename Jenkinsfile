@@ -10,15 +10,12 @@ pipeline {
         stage('Test, build, and publish') {
             stages {
                 stage('Test and build') {
-                    agent {
-                        docker {
-                            image 'openjdk:8-jdk-alpine'
-                            args '-v $HOME/.gradle:/root/.gradle'
-                        }
-                    }
+                    agent { label 'dockerhost' }
                     steps {
                         echo 'Building and testing...'
-                        sh "./gradlew build"
+                        withDockerContainer('openjdk:8-jdk-alpine', '-v $HOME/.gradle:/root/.gradle') {
+                            sh "./gradlew build"
+                        }
                     }
                 }
                 stage('Build production image') {
