@@ -7,9 +7,8 @@ pipeline {
         TAGGED_IMAGE_NAME = "${env.DOCKER_REPO_NAME}:${env.TAG_NAME}"
     }
     stages {
-        stage('Test and build') {
+        stage('Build and test') {
             steps {
-                echo 'Building and testing...'
                 withDockerContainer(image: 'openjdk:8-jdk-alpine', args: '-v $HOME/.gradle:/root/.gradle') {
                     sh "./gradlew build"
                 }
@@ -17,14 +16,12 @@ pipeline {
         }
         stage('Build production image') {
             steps {
-                echo 'Building...'
                 sh "cp build/libs/*.jar app.jar"
                 sh "docker build -t ${TAGGED_IMAGE_NAME} -f Dockerfile.prod ."
             }
         }
         stage('Publish') {
             steps {
-                echo 'Publishing...'
                 withDockerRegistry([credentialsId: "ledlie-docker-hub-creds", url: ""]) {
                     sh "docker push ${TAGGED_IMAGE_NAME}"
                 }
