@@ -12,13 +12,13 @@ pipeline {
                 stage('Test and build') {
                     agent {
                         docker {
-                            image 'gradle:jdk8-alpine'
+                            image 'openjdk:8-jdk-alpine'
                             args '-v $HOME/.gradle:/root/.gradle'
                         }
                     }
                     steps {
                         echo 'Building and testing...'
-                        sh "gradle build"
+                        sh "./gradlew build"
                     }
                 }
                 stage('Build production image') {
