@@ -17,7 +17,7 @@ pipeline {
         stage('Build production image') {
             steps {
                 sh "cp build/libs/*.jar app.jar"
-                sh "docker build -t ${TAGGED_IMAGE_NAME} -f Dockerfile.prod ."
+                sh "docker build -t ${TAGGED_IMAGE_NAME} -f Dockerfile.jenkins ."
             }
         }
         stage('Publish') {
