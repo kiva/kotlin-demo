@@ -52,7 +52,7 @@ class ArticleServiceTests(@Autowired val service: ArticleService) {
 
         val saved = service.saveArticle(testTitle, testContent)
 
-        assertEquals("Nope", saved.title)
+        assertEquals(testTitle, saved.title)
         assertEquals(testContent, saved.content)
         // verifies after the fact that the mockArticleRepository's save method was called with an article meeting certain criteria
         // similar to expectations in phpunit, where we'd set up expectations for method calls before those method
