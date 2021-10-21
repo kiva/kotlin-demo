@@ -1,5 +1,5 @@
 # Dockerfile focused on development environment use case
-FROM openjdk:8-jdk-alpine
+FROM openjdk:11-jre-buster
 
 # Prep image with gradle cache to use as mount point for host cache when container runs
 RUN mkdir /root/.gradle
